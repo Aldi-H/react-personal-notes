@@ -10,7 +10,6 @@ const NoteList = ({
 }) => {
   return (
     <div className="py-4">
-      {/* <AddNote handleAddNote={handleAddNote} /> */}
       <h2 className="text-2xl pb-6 font-bold">{label}</h2>
       <div className="grid col-span-3 grid-cols-auto gap-4">
         {notes.length === 0 ? (
@@ -24,8 +23,8 @@ const NoteList = ({
               id={note.id}
               noteTitle={note.title}
               noteBody={note.body}
-              // action={handleArchiveNote}
               noteCreatedAt={showFormattedDate(note.createdAt)}
+              noteArchived={note.archived}
               handleDeleteNote={handleDeleteNote}
               handleArchiveNote={handleArchiveNote}
               handleSearchNote={handleSearchNote}

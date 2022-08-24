@@ -30,12 +30,13 @@ const AddNote = ({ handleAddNote }) => {
 
   return (
     <div className="py-4">
-      <div className="bg-sky-500 rounded-md backdrop-blur-sm backdrop-brightness-100 p-4 h-max max-w flex flex-col justify-between">
+      <h2 className="text-2xl pb-6 font-bold">Buat Catatan</h2>
+      <div className="bg-amber-100 rounded-md backdrop-blur-sm backdrop-brightness-100 p-4 h-max max-w flex flex-col justify-between">
         <div className="flex flex-col justify-between">
           <input
             type="text"
             placeholder="Masukkan Judul...."
-            className="p-2 text-lg font-bold bg-sky-500 border-none placeholder:font-normal placeholder:text-sm focus:outline-none placeholder-gray-300 placeholder:font-mono"
+            className="p-2 text-lg font-bold bg-amber-100 text-gray-800 border-none placeholder:font-normal placeholder:text-sm focus:outline-none placeholder-slate-400 placeholder:font-mono"
             value={noteTitle}
             onChange={onHandleChangeTitle}
           ></input>
@@ -43,14 +44,14 @@ const AddNote = ({ handleAddNote }) => {
             rows="8"
             cols="10"
             placeholder="Masukkan Catatan...."
-            className="p-2 text-sm bg-sky-500 border-none resize-none focus:outline-none placeholder-gray-300 placeholder:font-mono"
+            className="p-2 text-sm bg-amber-100 text-gray-800 border-none resize-none focus:outline-none placeholder-slate-400 placeholder:font-mono"
             value={noteContent}
             onChange={onHandleChangeContent}
           ></textarea>
         </div>
         <footer className="pt-10 flex text-center justify-between">
-          <small className="font-semibold">
-            {characterTitleLimit - noteTitle.length} Batas Panjang Judul
+          <small className="font-semibold text-slate-600">
+            {characterTitleLimit - noteTitle.length} Character Remaining
           </small>
           <MdAddCircle
             className="cursor-pointer"

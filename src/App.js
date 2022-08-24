@@ -1,7 +1,6 @@
 import { nanoid } from "nanoid";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { MdUndo, MdArchive } from "react-icons/md";
 import Header from "./components/Header";
 import AddNote from "./components/AddNote";
 import NoteList from "./components/NoteList";
@@ -18,6 +17,7 @@ const App = () => {
       title: note.title,
       body: note.body,
       createdAt: createdAt,
+      archived: false,
     };
 
     const newNotes = [...notes, newNote];
@@ -25,47 +25,42 @@ const App = () => {
   };
 
   const deleteNote = (id) => {
-    const newNote = notes.filter((note) => note.id !== id);
-    setNotes(newNote);
+    const deleltedNotes = notes.filter((note) => note.id !== id);
+    setNotes(deleltedNotes);
   };
 
   const archiveNote = (id) => {
-    const newNote = notes;
-    const index = newNote.findIndex((note) => note.id === id);
-    newNote[index].archived = !notes[index].archived;
-    console.log(newNote);
-    setNotes(newNote);
+    const archiveNote = notes.filter((note) => note.id !== id);
+    const archivedNote = notes.filter((note) => note.id === id);
+    archivedNote[0].archived = !archivedNote[0].archived;
+    setNotes([...archiveNote, archivedNote[0]]);
   };
 
-  // const handleSearchNote = (searchTerm) => {
-  //   notes.filter((note) => note.title.toLocaleLowerCase().includes(searchTerm));
-  // };
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLocaleLowerCase().includes(searchTerm),
+  );
 
   return (
-    <div className="max-w-6xl mr-auto ml-auto p-4">
+    <div className="max-w-screen-xl mr-auto ml-auto p-4">
       <Header handleSearchNote={setSearchTerm} />
-      <div className="grid gap-4 grid-cols-4">
-        <div className="col-span-3">
+      <div className="grid lg:grid-cols-4 gap-4">
+        <AddNote handleAddNote={addNote} />
+        <div className="lg:col-span-3">
           <NoteList
-            // notes={notes.filter((note) =>
-            //   note.title.toLocaleLowerCase().includes(searchTerm),
-            // )}
-            notes={notes.filter((note) => note.archived === false)}
-            // notes={filteredNotes}
+            notes={filteredNotes.filter((note) => note.archived === false)}
             label="Catatan Aktif"
             handleAddNote={addNote}
             handleDeleteNote={deleteNote}
             handleArchiveNote={archiveNote}
           />
           <NoteList
-            notes={notes.filter((note) => note.archived === true)}
+            notes={filteredNotes.filter((note) => note.archived === true)}
             label="Arsip"
             handleAddNote={addNote}
             handleDeleteNote={deleteNote}
             handleArchiveNote={archiveNote}
           />
         </div>
-        <AddNote handleAddNote={addNote} />
       </div>
     </div>
   );
